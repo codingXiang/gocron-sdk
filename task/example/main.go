@@ -9,7 +9,7 @@ import (
 
 var (
 	conf *viper.Viper
-	t = &task.Task{
+	t    = &task.Task{
 		Name:             "sdk test",
 		Tag:              "birthday",
 		Level:            task.Parent,
@@ -40,11 +40,13 @@ func init() {
 
 func main() {
 	client := task.NewClient(conf)
-	resp, err := client.Remove("15")
+	resp, err := client.GetList(nil, map[string]string{
+		"name": "7",
+	})
 
 	if err != nil {
 		panic(err)
 	}
 
-	log.Println(resp.Message)
+	log.Println(resp[0].ID)
 }

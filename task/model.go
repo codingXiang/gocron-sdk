@@ -44,7 +44,6 @@ const (
 )
 
 type Task struct {
-	//id:3
 	ID string `json:"id"`
 	//name:api test
 	Name string `json:"name"`
@@ -88,13 +87,21 @@ type Task struct {
 
 }
 
+type Response struct {
+	ID int `json:"id"`
+	//name:api test
+	Name string `json:"name"`
+	//tag:
+	Tag string `json:"tag"`
+}
+
 type ListResponse struct {
 	Data struct {
-		Data []*Task `json:"data"`
+		Data []*Response `json:"data"`
 	} `json:"data"`
 }
 
-func byte2ListResponse(in []byte) ([]*Task, error) {
+func byte2ListResponse(in []byte) ([]*Response, error) {
 	res := new(ListResponse)
 	err := json.Unmarshal(in, &res)
 	return res.Data.Data, err

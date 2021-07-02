@@ -16,7 +16,7 @@ const (
 	Create  = "/api/task/store"
 	Disable = "/api/task/disable/%s"
 	Enable  = "/api/task/enable/%s"
-	Remove = "/api/task/remove/%s"
+	Remove  = "/api/task/remove/%s"
 )
 
 type Client struct {
@@ -30,7 +30,7 @@ func NewClient(config *viper.Viper) *Client {
 }
 
 //GetList 取得任務列表
-func (p *Client) GetList(pageInfo *model.PageInfo, condition map[string]string) ([]*Task, error) {
+func (p *Client) GetList(pageInfo *model.PageInfo, condition map[string]string) ([]*Response, error) {
 	endpoint := util.HandleEndpoint(GET, pageInfo, condition)
 	resp, err := p.Get(endpoint)
 	if err != nil {
