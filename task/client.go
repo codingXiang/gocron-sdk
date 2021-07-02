@@ -44,6 +44,9 @@ func (p *Client) GetList(pageInfo *model.PageInfo, condition map[string]string) 
 func (p *Client) Create(task *Task) (*ActionResponse, error) {
 	payload := &bytes.Buffer{}
 	writer := multipart.NewWriter(payload)
+	if task.ID != "" {
+		_ = writer.WriteField("id", task.ID)
+	}
 	//name:api test
 	_ = writer.WriteField("name", task.Name)
 	//tag:
