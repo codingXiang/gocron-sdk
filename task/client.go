@@ -17,6 +17,7 @@ const (
 	Disable = "/api/task/disable/%s"
 	Enable  = "/api/task/enable/%s"
 	Remove  = "/api/task/remove/%s"
+	Run     = "/api/task/run/%s"
 )
 
 type Client struct {
@@ -127,6 +128,17 @@ func (p *Client) Enable(id string) (*ActionResponse, error) {
 func (p *Client) Remove(id string) (*ActionResponse, error) {
 	endpoint := fmt.Sprintf(Remove, id)
 	resp, err := p.Post(endpoint, nil)
+	if err != nil {
+		return nil, err
+	}
+	defer fasthttp.ReleaseResponse(resp) // <- do not forget to release
+	return byte2ActionResponse(resp.Body())
+}
+
+//Run 手動執行任務
+func (p *Client) Run(id string) (*ActionResponse, error) {
+	endpoint := fmt.Sprintf(Run, id)
+	resp, err := p.Get(endpoint)
 	if err != nil {
 		return nil, err
 	}
