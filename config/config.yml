@@ -1,5 +1,6 @@
-baseUrl: http://127.0.0.1:5920
-auth:
-  id: 1
-  name: shawn
-  secret: 4262cb3c376220d19bc37b10390e27afb3ea5e291de8a37360319f9bfb678b9d
+gocron:
+  url: http://127.0.0.1:5920
+  auth:
+    id: 1
+    name: shawn
+    secret: 4262cb3c376220d19bc37b10390e27afb3ea5e291de8a37360319f9bfb678b9d

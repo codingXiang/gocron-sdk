@@ -2,6 +2,7 @@ package auth
 
 import (
 	"github.com/dgrijalva/jwt-go"
+	"log"
 	"time"
 )
 
@@ -21,6 +22,7 @@ type Jwt struct {
 }
 
 func NewJwt(id int, name, secret string) *Jwt {
+	log.Println("gocron jwt config, name = ", name , ", secret = ", secret[:len(secret) / 2], "...")
 	return &Jwt{
 		UserId:     id,
 		Username:   name,

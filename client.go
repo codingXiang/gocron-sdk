@@ -2,10 +2,21 @@ package mycommerce_sdk
 
 import (
 	"encoding/json"
+	"github.com/codingXiang/configer/v2"
 	"github.com/codingXiang/gocron-sdk/auth"
 	"github.com/spf13/viper"
 	"github.com/valyala/fasthttp"
+	"log"
 	"net/http"
+)
+
+const (
+	_key = "gocron"
+	_url = "url"
+	_auth = "auth"
+	_id = "id"
+	_name = "name"
+	_secret = "secret"
 )
 
 type Client struct {
@@ -17,10 +28,11 @@ type Client struct {
 
 func NewClient(config *viper.Viper) *Client {
 	c := &Client{
-		baseUrl: config.GetString("baseUrl"),
+		baseUrl: config.GetString(configer.GetConfigPath(_key, _url)),
 	}
-	if _auth := config.GetStringMap("auth"); _auth != nil {
-		c.Auth = auth.NewJwt(_auth["id"].(int), _auth["name"].(string), _auth["secret"].(string))
+	log.Println("gocron client url = ", c.baseUrl)
+	if _auth := config.GetStringMap(configer.GetConfigPath(_key, _auth)); _auth != nil {
+		c.Auth = auth.NewJwt(_auth[_id].(int), _auth[_name].(string), _auth[_secret].(string))
 	}
 	c.Client = &fasthttp.Client{}
 	//c.Client = &http.Client{}
